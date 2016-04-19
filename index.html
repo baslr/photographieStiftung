@@ -64,8 +64,8 @@
     
     if (img.width >= maxWidth) {
       var ratio = img.width / maxWidth;
-      img.width = Math.round(img.width / ratio);
-      img.height = Math.round(img.height / ratio);
+      img.width = (img.width / ratio);
+      img.height = (img.height / ratio);
       rows.push([img]);
       continue;
     } // if
@@ -79,8 +79,8 @@
       }, 0) ;
       var ratio = fullWidth / (maxWidth - (curRow.length-1)*10);
       curRow.forEach( function(img) {
-        img.width  = Math.round(img.width / ratio);
-        img.height = Math.round(img.height / ratio);
+        img.width  = (img.width / ratio);
+        img.height = (img.height / ratio);
       });
       rows.push(curRow);
       curRow   = [];
