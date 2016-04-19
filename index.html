@@ -1,0 +1,107 @@
+<html>
+<!-- (c) 2016 all rights reserved! -->
+<head>
+<script type="text/javascript" src="angular.js"></script>
+<style type="text/css">
+  body {
+    background-color: rgb(17.68%,17.68%,17.68%);
+    width: 1515px;
+    margin: 0px auto;
+    padding: 0px;
+  }
+  img {
+    margin: 0px;
+    padding: 0px;
+  }
+  img {
+    margin: 5px 5px;
+
+  }
+
+  .imgRow {
+    float: none;
+  }
+</style>
+</head>
+<body data-ng-app="app">
+
+<span style="color:pink;">IMAGES are from <a style="color:pink;" href="https://commons.wikimedia.org/wiki/Main_Page">wikimedia commons</a></span>
+
+<div data-ng-controller="testController">
+  <div class="imgRow" data-ng-repeat="row in rows">
+    <img data-ng-repeat="img in row" src="{{img.name}}" width="{{img.width}}" height="{{img.height}}">
+    {{img}}
+
+  </div>
+</div>
+</body>
+
+
+<script type="text/javascript">
+  var imgs = [{"name":"out0.jpg","width":500,"height":500},{"name":"out1.jpg","width":333,"height":500},{"name":"out2.jpg","width":800,"height":500},{"name":"out3.jpg","width":2585,"height":500},{"name":"out4.jpg","width":747,"height":500},{"name":"out5.jpg","width":980,"height":500},{"name":"out6.jpg","width":889,"height":500},{"name":"out7.jpg","width":750,"height":500},{"name":"out8.jpg","width":795,"height":500},{"name":"out9.jpg","width":335,"height":500},{"name":"out10.jpg","width":750,"height":500},{"name":"out11.jpg","width":750,"height":500},{"name":"out12.jpg","width":816,"height":500},{"name":"out13.jpg","width":750,"height":500},{"name":"out14.jpg","width":750,"height":500},{"name":"out15.jpg","width":778,"height":500},{"name":"out16.jpg","width":751,"height":500},{"name":"out17.jpg","width":750,"height":500},{"name":"out18.jpg","width":667,"height":500},{"name":"out19.jpg","width":753,"height":500},{"name":"out20.jpg","width":713,"height":500},{"name":"out21.jpg","width":1072,"height":500},{"name":"out22.jpg","width":749,"height":500},{"name":"out23.jpg","width":839,"height":500},{"name":"out24.jpg","width":333,"height":500},{"name":"out25.jpg","width":2270,"height":500},{"name":"out26.jpg","width":750,"height":500},{"name":"out27.jpg","width":703,"height":500},{"name":"out28.jpg","width":746,"height":500},{"name":"out29.jpg","width":750,"height":500},{"name":"out30.jpg","width":750,"height":500},{"name":"out31.jpg","width":721,"height":500},{"name":"out32.jpg","width":335,"height":500},{"name":"out33.jpg","width":750,"height":500},{"name":"out34.jpg","width":333,"height":500},{"name":"out35.jpg","width":750,"height":500},{"name":"out36.jpg","width":750,"height":500},{"name":"out37.jpg","width":826,"height":500},{"name":"out38.jpg","width":303,"height":500},{"name":"out39.jpg","width":925,"height":500},{"name":"out40.jpg","width":1151,"height":500},{"name":"out41.jpg","width":408,"height":500},{"name":"out42.jpg","width":726,"height":500},{"name":"out43.jpg","width":356,"height":500},{"name":"out44.jpg","width":667,"height":500},{"name":"out45.jpg","width":775,"height":500},{"name":"out46.jpg","width":972,"height":500},{"name":"out47.jpg","width":370,"height":500},{"name":"out48.jpg","width":319,"height":500},{"name":"out49.jpg","width":829,"height":500},{"name":"out50.jpg","width":750,"height":500},{"name":"out51.jpg","width":664,"height":500},{"name":"out52.jpg","width":1395,"height":500},{"name":"out53.jpg","width":333,"height":500},{"name":"out54.jpg","width":733,"height":500},{"name":"out55.jpg","width":667,"height":500}];
+
+  var maxWidth = 1500;
+  var rows     = [];
+  
+  var curWidth = 0;
+  var curRow   = [];
+
+  for(i = 0; imgs[i]; i++) {
+    var img = imgs[i];
+    
+    if (img.width >= maxWidth) {
+      var ratio = img.width / maxWidth;
+      img.width = Math.round(img.width / ratio);
+      img.height = Math.round(img.height / ratio);
+      rows.push([img]);
+      continue;
+    } // if
+
+    curRow.push(img);
+    curWidth += img.width;
+
+    if (curWidth > maxWidth) {
+      var fullWidth = curRow.reduce( function(prev, cur) {
+        return prev + cur.width;
+      }, 0) ;
+      var ratio = fullWidth / (maxWidth - (curRow.length-1)*10);
+      curRow.forEach( function(img) {
+        img.width  = Math.round(img.width / ratio);
+        img.height = Math.round(img.height / ratio);
+      });
+      console.log('fullWidth', fullWidth);
+      rows.push(curRow);
+      curRow   = [];
+      curWidth = 0;
+      continue;
+    } // if
+  } // for
+
+  console.log(rows);
+
+  var app = angular.module('app', []);
+
+
+  app.controller('testController', ['$scope', function(scope) {
+
+
+    scope.imgs = imgs;
+    scope.rows = rows;
+  }]);
+
+  window.onkeydown = function(e) {
+
+    if(e.keyCode == 71) {
+      document.querySelector('body').style.backgroundColor = 'rgb(17.68%,17.68%,17.68%)';
+    }
+    if(e.keyCode == 87) {
+      document.querySelector('body').style.backgroundColor = '#fff';
+    }
+
+
+  }
+
+
+
+</script>
+</html>
