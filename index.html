@@ -125,14 +125,14 @@ console.log(e);
       document.querySelector('body').style.backgroundColor = '#fff';
     }
 
-    if(e.keyCode == 187) {
+    if(e.keyCode == 187 || e.keyCode == 171) {
       greyPos++;
       if (!greys[greyPos]) greyPos = 0;
 
       document.querySelector('body').style.backgroundColor = greys[greyPos];
     } // if
 
-    if(e.keyCode == 189) {
+    if(e.keyCode == 189 || e.keyCode == 173) {
       greyPos--;
       if (!greys[greyPos]) greyPos = greys.length-1;
       document.querySelector('body').style.backgroundColor = greys[greyPos];
