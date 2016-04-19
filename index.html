@@ -69,15 +69,12 @@
         img.width  = Math.round(img.width / ratio);
         img.height = Math.round(img.height / ratio);
       });
-      console.log('fullWidth', fullWidth);
       rows.push(curRow);
       curRow   = [];
       curWidth = 0;
       continue;
     } // if
   } // for
-
-  console.log(rows);
 
   var app = angular.module('app', []);
 
@@ -89,8 +86,25 @@
     scope.rows = rows;
   }]);
 
-  window.onkeydown = function(e) {
 
+  var greys = [
+    'rgb(100%,100%,100%)',
+    'rgb(70.71%,70.71%,70.71%)',
+    'rgb(50%,50%,50%)',
+    'rgb(35.36%,35.36%,35.36%)',
+    'rgb(25%,25%,25%)',
+    'rgb(17.68%,17.68%,17.68%)',
+    'rgb(12.5%,12.5%,12.5%)',
+    'rgb(8.84%,8.84%,8.84%)',
+    'rgb(6.25%,6.25%,6.25%)',
+    'rgb(4.42%,4.42%,4.42%)',
+    'rgb(3.13%,3.13%,3.13%)',
+    'rgb(0%,0%,0%)'
+  ];
+  var greyPos = 0;
+
+  window.onkeydown = function(e) {
+console.log(e);
     if(e.keyCode == 71) {
       document.querySelector('body').style.backgroundColor = 'rgb(17.68%,17.68%,17.68%)';
     }
@@ -98,7 +112,19 @@
       document.querySelector('body').style.backgroundColor = '#fff';
     }
 
+    if(e.keyCode == 187) {
+      greyPos++;
+      if (!greys[greyPos]) greyPos = 0;
 
+      document.querySelector('body').style.backgroundColor = greys[greyPos];
+    } // if
+
+    if(e.keyCode == 189) {
+      greyPos--;
+      if (!greys[greyPos]) greyPos = greys.length-1;
+      document.querySelector('body').style.backgroundColor = greys[greyPos];
+
+    } // if
   }
 
 
